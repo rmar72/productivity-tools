@@ -27,7 +27,7 @@ export const addTodo = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTodo = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const deleteTodo = async (req: Request, res: Response, next: NextFunction): Promise<any | void> => {
   try {
       const id = parseInt(req.params.id, 10);
 
