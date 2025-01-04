@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { query } from '../db';
 import { handleError } from '../utilities'
@@ -27,8 +27,17 @@ export const addTodo = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTodo = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  await query('DELETE FROM todos WHERE id = $1', [id])
-  res.status(204).send()
+export const deleteTodo = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+      const id = parseInt(req.params.id, 10);
+
+      if (isNaN(id)) {
+        return res.status(400).json({ error: 'Invalid ID' });
+      }
+
+      await query('DELETE FROM todos WHERE id = $1', [id]);
+      res.status(204).send();
+  } catch (error) {
+      next(error);
+  }
 };
