@@ -3,7 +3,7 @@ services:
   api:
     build: .
     ports:
-      - "8081:8081 "
+      - "8081:8081" # Match the port your app listens on
     environment:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
@@ -22,7 +22,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+        - pgdata:/var/lib/postgresql/data
+        - ./src/db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
 volumes:
   pgdata:

@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "moduleResolution": "node" 
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
